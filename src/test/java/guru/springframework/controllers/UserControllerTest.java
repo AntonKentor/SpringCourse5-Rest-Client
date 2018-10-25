@@ -14,7 +14,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringRunner.class) // Bringing up the Spring boot context to get thymeleaf template engine up. since this is
+// a Intergration test.
 @SpringBootTest
 public class UserControllerTest {
 

@@ -29,6 +29,8 @@ public class UserController {
 
     @PostMapping("/users")
     public String formPost(Model model, ServerWebExchange serverWebExchange) {
+        //ServerWebEchange is the reactive way to get form-data.
+        //ServerRequest is Spring mvc-specific.
 
         MultiValueMap<String, String> map = serverWebExchange.getFormData().block();
 
