@@ -28,6 +28,8 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public List<User> getUsers(int limit) {
 
+        //Non reactive way
+
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder
                 .fromUriString(api_url)
                 .queryParam("limit", limit);
@@ -39,6 +41,8 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     public Flux<User> getUsers(Mono<Integer> limit) {
+
+        //Reactive way.
 
         //This will not be executed until its back on the thymeleaf template. When, for example, you will iterate
         //the data in userlist.html.
