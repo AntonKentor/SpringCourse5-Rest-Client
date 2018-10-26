@@ -4,7 +4,6 @@ import guru.springframework.services.ApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ServerWebExchange;
@@ -32,7 +31,9 @@ public class UserController {
         //ServerWebEchange is the reactive way to get form-data.
         //ServerRequest is Spring mvc-specific.
 
-        MultiValueMap<String, String> map = serverWebExchange.getFormData().block();
+        //*****OLD IMPLEMENTATION *****
+
+/*        MultiValueMap<String, String> map = serverWebExchange.getFormData().block();
 
         Integer limit = new Integer(map.get("limit").get(0));
 
@@ -45,6 +46,15 @@ public class UserController {
 
         model.addAttribute("users", apiService.getUsers(limit));
 
+        return "userlist";*/
+
+        // **** NEW REACTIVE IMPLEMENTATION ****
+
+        model.addAttribute("users",
+                apiService
+                        .getUsers(serverWebExchange
+                                .getFormData()
+                                .map(data -> new Integer(data.getFirst("limit")))));
         return "userlist";
     }
 }
